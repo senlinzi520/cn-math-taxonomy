@@ -11,7 +11,7 @@
 | 上游（原作者） | `https://github.com/xiaoyang111222/cn-math-taxonomy.git` |
 | 本 fork | `https://github.com/senlinzi520/cn-math-taxonomy.git` |
 | `main` | `3ecd054`，纯上游镜像，不提交 |
-| `dev` | `719539e`，开发线，已推送（本文件的更新提交紧随其后） |
+| `dev` | `c1f0691`，开发线，已推送（本文件的更新提交紧随其后） |
 | `sw.js` VERSION | `v20`（随上游变） |
 
 ## 1. 目标与边界
@@ -40,6 +40,7 @@
 | `c7ef7a2` | `scripts/deploy-cf.sh` | 账号 ID 与 Pages 项目名改环境变量 | 原值硬编码作者 Cloudflare 账号与项目名，误跑会往作者项目部署 |
 | `e57ff65` | `.github/workflows/ci.yml`、`tests/test_ci_workflow.js` | `main` 与 `dev` 都触发 CI | fork 的 `dev` 也要跑数据校验；测试里的触发断言同步改 |
 | `719539e` | 5 个页面的 `index.html`、`assets/site.css`、`assets/explore.css` | 删除顶部「儿童智商测试」横幅与导航「关于」，清掉 `.top-banner` 相关样式 | 不给作者的其它产品导流；「关于」删后署名仍在 `README`/`LICENSE` |
+| `c1f0691` | `index.html`、`diagnose/app.js`、`diagnose/style.css`、`assets/site.css`、`assets/pwa.js` | 删除导航「资源搜索」、首页智商测试卡片、诊断结果页入口及对应样式；PWA 引导图地址栏改显示本站域名 | 站内不再有指向作者站点的入口 |
 
 ## 4. 日常操作
 
@@ -139,7 +140,7 @@ node tests/test_engine.js
 | 部署环境变量 | `CLOUDFLARE_API_TOKEN`、`CLOUDFLARE_ACCOUNT_ID` 必填，`CF_PAGES_PROJECT` 选填（默认上游项目名，fork 必须覆盖） |
 | 统计 | `assets/stats-config.js` 的 `endpoint` 已留空，本站不向第三方发事件；要统计填自己的地址 |
 | 分享二维码 | 按当前站点地址生成，换域名或子路径部署都不用改代码 |
-| 剩余外链 | 顶部横幅与「关于」已删（`719539e`）；`index.html` 第 82 行「资源搜索」、第 138 行「儿童智商测试」卡片、`diagnose/app.js` 第 1302 行仍指向 `pansgo.com`，待决策 |
+| 站内外链 | 顶部横幅、「关于」、导航「资源搜索」、首页智商测试卡片、诊断结果页入口均已删除；站点代码里已无 `pansgo` 字样（可 `grep` 复核）。页脚「提交 Issue」指向上游仓库（`index.html` 第 137 行），属反馈入口，保留 |
 | 截图脚本 | `scripts/screenshot.js` 仍断言 `a.top-banner` 存在并截 `41/42-top-banner` 图，横幅删除后这两处已失效（上游开发脚本，暂未改） |
 | fork 的 Actions | 首次需在仓库 Actions 页手动启用；公开仓库免费 |
 | 网络 | 到 `github.com:443` 间歇性超时，`git push` 失败先换网络或开代理 |
@@ -148,9 +149,8 @@ node tests/test_engine.js
 ## 9. 待决策
 
 1. 站点身份：名称、域名。许可证要求保留原作者署名，但站内「关于」已删——建议在页脚补一行来源说明（如「数据与代码基于 xiaoyang111222/cn-math-taxonomy，CC BY-NC 4.0」）。
-2. 剩余 `pansgo.com` 外链：导航「资源搜索」、首页「儿童智商测试」卡片、诊断结果页一句。删掉、换成自己的、或保留。
-3. 品牌与配置是否集中到 `assets/site-config.js`（新建），避免散落在各页面。
-4. 自有点/题的 ID 前缀。
+2. 品牌与配置是否集中到 `assets/site-config.js`（新建），避免散落在各页面。
+3. 自有点/题的 ID 前缀。
 
 ## 10. 给后续 AI 的约定
 
@@ -171,3 +171,4 @@ node tests/test_engine.js
 | 2026-11-13 | `e57ff65` | CI 支持 `dev` 分支 |
 | 2026-11-13 | — | 新增本文件，记录工作流、解耦约定与 AI 维护规则 |
 | 2026-11-13 | `719539e` | 删除全站顶部「儿童智商测试」横幅与导航「关于」，清理 `.top-banner` 样式 |
+| 2026-11-13 | `c1f0691` | 删除导航「资源搜索」、首页智商测试卡片、诊断结果页入口，PWA 引导图地址栏改本站域名 |
