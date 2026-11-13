@@ -86,11 +86,11 @@ test('工作流文件存在', () => {
   assert.ok(fs.existsSync(WORKFLOW));
 });
 
-test('推送与 PR 到 main 时触发', () => {
+test('推送与 PR 到 main 或 dev 时触发', () => {
   const src = readSource();
   assert.match(src, /^on:\s*$/m);
-  assert.match(src, /^\s+push:\s*\n\s+branches:\s*\[\s*main\s*\]/m);
-  assert.match(src, /^\s+pull_request:\s*\n\s+branches:\s*\[\s*main\s*\]/m);
+  assert.match(src, /^\s+push:\s*\n\s+branches:\s*\[\s*main\s*,\s*dev\s*\]/m);
+  assert.match(src, /^\s+pull_request:\s*\n\s+branches:\s*\[\s*main\s*,\s*dev\s*\]/m);
 });
 
 test('权限仅为 contents: read，且没有部署步骤', () => {
