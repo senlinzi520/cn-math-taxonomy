@@ -1,7 +1,16 @@
 /* 诊断结果分享图：canvas 竖图，系统字体，二维码用本地 qrcode-generator 绘制。 */
 (function (global) {
   'use strict';
-  var SHARE_URL = 'https://math.pansgo.com/?from=share';
+  /* 分享二维码只指向本站：从当前页面路径反推站点根目录。
+   * 换域名、部署到子路径（如 http://localhost/cn-math-taxonomy/）都不用改代码。 */
+  var SITE_ROOT = (function () {
+    var p = String(location.pathname || '/');
+    var i = p.indexOf('/diagnose/');
+    var base = i >= 0 ? p.slice(0, i) : p.replace(/[^/]*$/, '');
+    if (base.slice(-1) !== '/') base += '/';
+    return location.protocol + '//' + location.host + base;
+  })();
+  var SHARE_URL = SITE_ROOT + '?from=share';
   var W = 1080;
   var H = 1920;
   var FONT = '"PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC", "Source Han Sans SC", sans-serif';
