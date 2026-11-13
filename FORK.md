@@ -11,7 +11,7 @@
 | 上游（原作者） | `https://github.com/xiaoyang111222/cn-math-taxonomy.git` |
 | 本 fork | `https://github.com/senlinzi520/cn-math-taxonomy.git` |
 | `main` | `3ecd054`，纯上游镜像，不提交 |
-| `dev` | `e57ff65`，开发线，已推送 |
+| `dev` | `719539e`，开发线，已推送（本文件的更新提交紧随其后） |
 | `sw.js` VERSION | `v20`（随上游变） |
 
 ## 1. 目标与边界
@@ -39,6 +39,7 @@
 | `51ab8cb` | `diagnose/share.js` | 分享二维码按 `location.pathname` 反推站点根目录 | 原值写死 `math.pansgo.com`，用户扫码会进作者站点；子路径部署也适用 |
 | `c7ef7a2` | `scripts/deploy-cf.sh` | 账号 ID 与 Pages 项目名改环境变量 | 原值硬编码作者 Cloudflare 账号与项目名，误跑会往作者项目部署 |
 | `e57ff65` | `.github/workflows/ci.yml`、`tests/test_ci_workflow.js` | `main` 与 `dev` 都触发 CI | fork 的 `dev` 也要跑数据校验；测试里的触发断言同步改 |
+| `719539e` | 5 个页面的 `index.html`、`assets/site.css`、`assets/explore.css` | 删除顶部「儿童智商测试」横幅与导航「关于」，清掉 `.top-banner` 相关样式 | 不给作者的其它产品导流；「关于」删后署名仍在 `README`/`LICENSE` |
 
 ## 4. 日常操作
 
@@ -138,15 +139,16 @@ node tests/test_engine.js
 | 部署环境变量 | `CLOUDFLARE_API_TOKEN`、`CLOUDFLARE_ACCOUNT_ID` 必填，`CF_PAGES_PROJECT` 选填（默认上游项目名，fork 必须覆盖） |
 | 统计 | `assets/stats-config.js` 的 `endpoint` 已留空，本站不向第三方发事件；要统计填自己的地址 |
 | 分享二维码 | 按当前站点地址生成，换域名或子路径部署都不用改代码 |
-| 首页外链 | `index.html` 第 56/84/140 行、`diagnose/app.js` 第 1302 行仍指向 `pansgo.com`（作者的其它产品），待决策 |
+| 剩余外链 | 顶部横幅与「关于」已删（`719539e`）；`index.html` 第 82 行「资源搜索」、第 138 行「儿童智商测试」卡片、`diagnose/app.js` 第 1302 行仍指向 `pansgo.com`，待决策 |
+| 截图脚本 | `scripts/screenshot.js` 仍断言 `a.top-banner` 存在并截 `41/42-top-banner` 图，横幅删除后这两处已失效（上游开发脚本，暂未改） |
 | fork 的 Actions | 首次需在仓库 Actions 页手动启用；公开仓库免费 |
 | 网络 | 到 `github.com:443` 间歇性超时，`git push` 失败先换网络或开代理 |
 | 凭据 | 本机凭据由 Git Credential Manager 管理，登录过一次后可用；超时残留的 `git-credential-manager-core` 进程可直接结束 |
 
 ## 9. 待决策
 
-1. 站点身份：名称、域名、署名方式（许可证要求保留原作者署名）。
-2. 首页与诊断结果页的 `pansgo.com` 外链：删掉、换成自己的、或保留。
+1. 站点身份：名称、域名。许可证要求保留原作者署名，但站内「关于」已删——建议在页脚补一行来源说明（如「数据与代码基于 xiaoyang111222/cn-math-taxonomy，CC BY-NC 4.0」）。
+2. 剩余 `pansgo.com` 外链：导航「资源搜索」、首页「儿童智商测试」卡片、诊断结果页一句。删掉、换成自己的、或保留。
 3. 品牌与配置是否集中到 `assets/site-config.js`（新建），避免散落在各页面。
 4. 自有点/题的 ID 前缀。
 
@@ -167,4 +169,5 @@ node tests/test_engine.js
 | 2026-11-13 | `51ab8cb` | 诊断分享二维码改用本站地址 |
 | 2026-11-13 | `c7ef7a2` | 部署脚本云账号与项目名改为环境变量 |
 | 2026-11-13 | `e57ff65` | CI 支持 `dev` 分支 |
-| 2026-11-13 | 本次 | 新增本文件，记录工作流、解耦约定与 AI 维护规则 |
+| 2026-11-13 | — | 新增本文件，记录工作流、解耦约定与 AI 维护规则 |
+| 2026-11-13 | `719539e` | 删除全站顶部「儿童智商测试」横幅与导航「关于」，清理 `.top-banner` 样式 |
